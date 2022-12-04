@@ -4,10 +4,15 @@
     box-sizing: border-box;
 }
 
-section {
-    
-}
+/* section {
+
+} */
 
 .hidden {
-    display: hidden;
+    display: none;
+}
+
+.points {
+    justify-content: right;
+
 }
