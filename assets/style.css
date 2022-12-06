@@ -1,18 +1,37 @@
-* {
-    margin: 0px;
-    padding: 0px;
+* 
+{
     box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
 
-/* section {
-
-} */
-
-.hidden {
-    display: none;
+body 
+{
+    background-color: #d9dcd6;
 }
+.header
+{
+    width:100%;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background: linear-gradient(315deg, #0abcf9 0%, #2c69d1 74%);
+    color: #ffffff;
+    position: relative;
+}
+.scoreContainer
+{
+    width:100%;
+    min-height: 50px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background: linear-gradient(315deg, #0abcf9 0%, #2c69d1 74%);
+    color: #ffffff;
+    position: relative;
+}
+.scoreContainer a
+{
+    position:absolute;
+    right:0;
 
-.points {
-    justify-content: right;
-
+    color:rgb(0, 0, 0);
+    padding-right: 5px;
+    text-decoration: none;
 }
