@@ -1,6 +1,7 @@
 //id tags to be called
 var timeEl = document.getElementById("time"); 
-var questionEl = document.getElementById("question"); 
+var questionEl = document.getElementById("question");
+var questionBox = document.getElementById("question-box"); 
 var aEl = document.getElementById("answerA"); 
 var bEl = document.getElementById("answerB");
 var cEl = document.getElementById("answerC");
@@ -18,27 +19,47 @@ var secondsRemaining = 30;
 var i = 0;
 var leaderboard = [];
 
+questionBox.hidden = true;
+
 //questionSet contains the questions that will be referenced by nextQuestion function
 var questionSet = [
     {
-        question: "Inside which HTML element do we put the JavaScript?", 
-        choices: ["<javascript>","<js>","<src>","<script>"],
-        answer: "3"
+        question: "What does the acrnonym 'JSON' stand for ",
+        answers: [
+            "JavaScript Oh No!",
+            "JavaScript Object Notation",
+            "JavaScript Orientation Node"
+        ],
+        correctAnswer: "JavaScript Object Notation",
     },
     {
-        question: "How many ways are there with which we can declare a variable in javascript?", 
-        choices: ["Only One","Three","Infinately Many","None of the Above"],
-        answer: "1"
+        question: "What does the acronoym 'HTML' stand for?",
+        answers: [
+            "Hypertext Markup Language",
+            "High Text Modeling Logistics",
+            "Huge Trouble My Lord!"
+        ],
+        correctAnswer: "Hypertext Markup Language",
+       
     },
     {
-        question: "Is a variable named 'apple' same as 'Apple' in javascript?", 
-        choices: ["Yes","No","Only when we use strict","None of the Above"],
-        answer: "1"
-    },
-     
+        question: "According to wikipedia, what percentage of websites use Javascript on the client side?",
+        answers: [
+            "2%",
+            "9.7%",
+            "97%"
+        ],
+        correctAnswer: "97%",
+    }
 ];
 //Call the next question in questionSet and assign all of the answers to answer buttons
-function nextQuestion(i) {
+function nextQuestion() {
+  console.log(i)
+    questionEl.hidden = false;
+    aEl.hidden = false;
+    bEl.hidden = false;
+    cEl.hidden = false;
+    questionBox.hidden = false;
     correctAnswer = questionSet[i].correctAnswer;
     questionEl.textContent = questionSet[i].question;
     aEl.textContent = questionSet[i].answers[0];
@@ -46,7 +67,7 @@ function nextQuestion(i) {
     cEl.textContent = questionSet[i].answers[2];
   
   
-    questionEl.hidden = false;
+    
   }
   
 //highscores.html will error because there is no start btn, so only add event listener to index page
@@ -60,6 +81,7 @@ if(startBtn !== null) {
   //let the games begin!
   function startGame(event) {
     event.preventDefault();
+    startBtn.hidden = true;
      // Start a timer
      var countdown = setInterval(function () {
         secondsRemaining--;
@@ -74,8 +96,10 @@ if(startBtn !== null) {
             evaluationEl.hidden = true;
             setScore();
             
+            
         };
       }, 1000);
+      nextQuestion();
     }
 
     //event listener on buttons
@@ -86,3 +110,109 @@ if(startBtn !== null) {
 //if the answer is correct and the last question, respond correct - end quiz
 //if the answer is incorrect and time and not the last question, deduct 10 points and next question
 //if the answer is incorrect and the last question, deduct 10 points, end quiz
+function checkAnswer(event) {
+    event.stopPropagation();
+    if (event.target.textContent === correctAnswer && i < 2 ) {
+      i++;
+      evaluationEl.textContent = "Correct!";
+      nextQuestion();
+    } else if (event.target.textContent === correctAnswer) {
+      evaluationEl.textContent = "Correct!";
+
+      clearInterval(countdown);
+      setScore();
+    } 
+  //   else if (i < 2) {
+  //     secondsRemaining -= 10;
+  //     timeEl.textContent = secondsRemaining;
+  //     i++;
+  //     evaluationEl.textContent = "Incorrect - Minus 10 seconds";
+  //     nextQuestion(i);
+  //  } 
+   else if (i==2){
+     secondsRemaining -=10;
+     evaluationEl.textContent = "Incorrect - Minus 10 seconds";
+     questionEl.hidden = true;
+     aEl.hidden = true;
+     bEl.hidden = true;
+     cEl.hidden = true; 
+     clearInterval(countdown);
+     timeEl.textContent = secondsRemaining;
+     setScore();
+   }
+    else {
+    secondsRemaining -= 10;
+    i++;
+    nextQuestion();
+    evaluationEl.textContent = "Incorrect - Minus 10 seconds";
+    }
+    
+}
+//if time is less than 0 after deduction end quiz, if last question, end quiz. Hide questions!!!
+if (secondsRemaining < 0) {
+    secondsRemaining = 0;
+    timeEl.textContent = secondsRemaining;
+    evaluationEl.textContent = "";
+    clearInterval(countdown);
+    questionEl.hidden = true;
+    answerA.hidden = true;
+    answerB.hidden = true;
+    answerC.hidden = true; 
+    evaluationEl.hidden = true;
+    setScore();
+  } else {
+   timeEl.textContent = secondsRemaining;
+   questionEl.hidden = true;
+   answerA.hidden = true;
+   answerB.hidden = true;
+   answerC.hidden = true; 
+   evaluationEl.textContent = "End of Quiz";
+   clearInterval(countdown);
+   setScore();
+  }
+
+
+// When quiz is ended by time out 
+//or answering the last question
+// show final results and submit option
+function setScore() {
+    resultsEL.hidden = false;
+    if (secondsRemaining > 0){
+      scoreEL.textContent = secondsRemaining;
+  } else scoreEL.textContent = 0 ;
+  }
+  // put the score at 0 and submit playername and score to local storage on highscores page
+function submitScore(event) {
+    if(secondsRemaining < 0){
+      secondsRemaining = 0
+    }
+    event.stopPropagation();
+    event.preventDefault();
+  
+    var playerName = playerNameEl.value;
+  
+    localStorage.setItem(playerName, secondsRemaining);
+  
+    window.location = "highscores.html";
+  }
+  // local storage for all highscores
+function accessLeaderboard() {
+    var leaderboard = [];
+    var keys = Object.keys(localStorage);
+    var key;
+  
+    for (j = 0; (key = keys[j]); j++) {
+      leaderboard.push(key + ":  " + localStorage.getItem(key));
+    }
+  
+    return leaderboard;
+  }
+  //Add subs to leaderboard, will be shown on highscores page
+function showLeaderboard() {
+    leaderboard = accessLeaderboard();
+    for (k = 0; k < leaderboard.length; k++) {
+      var addScoreEl = document.createElement("li");
+      addScoreEl.textContent = leaderboard[k];
+      scoresListEL.appendChild(addScoreEl);
+    }
+}  

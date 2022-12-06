@@ -1,16 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>High Scores</title>
-</head>
-<body>
-    <div></div>
-    <h1>Recent Scores 
+<html lang="en-us">
+
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./reset.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Leaderboard</title>
+  </head>
+
+  <body onload='showLeaderboard()'>
+      <div class="scoreContainer">
+      <h1>Recent Scores 
         <a href="index.html"> Try again </a>
       </h1>
-    
-</body>
+
+      </div>
+    <ul id="scoresList"></ul>
+    <footer>
+        <h2>Thank you for visiting my webpage! Here's how to reach me: 
+        </h2>
+    </footer> 
+    <script src="./assets/scrpt2.js"></script>
+  </body>
 </html>

@@ -3,8 +3,9 @@
 
 <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="./style.css">
-    <title> Code Quiz</title>
+    <link rel="stylesheet" href="./assets/reset.css">
+    <link rel="stylesheet" href="./assets/style.css">
+    <title>Code Quiz</title>
 </head>
 <!-- header section with my name and a link to the high score page -->
 
@@ -21,14 +22,16 @@
     <div id = "content">
     <button id="startBtn">Start Quiz</button>
 
-        <div hidden id ="question">
+        <div id ="question">
+            
      
     </div> 
-    <ul>
+    <ul id="question-box">
         <li><button id="answerA"></button></li> 
         <li><button id="answerB"></button></li> 
         <li><button id="answerC"></button></li>
     </ul>   
+    
     <p id = "evaluation"> </p>
     <div hidden id ="resultsArea">
             <h2> Submit your name and score!</h2>
@@ -42,7 +45,7 @@
         <h2>Thank you for visiting!</h2> 
                       
     </footer>
-    <script src="./assets/script2.js"></script>
+    <script src="./assets/scrpt2.js"></script>
 
     
 </body>
