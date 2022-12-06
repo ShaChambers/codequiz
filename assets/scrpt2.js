@@ -112,16 +112,39 @@ if(startBtn !== null) {
 //if the answer is incorrect and the last question, deduct 10 points, end quiz
 function checkAnswer(event) {
     event.stopPropagation();
-    if (event.target.textContent === correctAnswer && i < 2 ) {
+    if (event.target.textContent === correctAnswer) {
       i++;
+      if (i == 3){
+        questionEl.hidden = true;
+        aEl.hidden = true;
+        bEl.hidden = true;
+        cEl.hidden = true; 
+        clearInterval(countdown);
+        timeEl.textContent = secondsRemaining;
+        setScore();
+      }
       evaluationEl.textContent = "Correct!";
       nextQuestion();
     } else if (event.target.textContent === correctAnswer) {
       evaluationEl.textContent = "Correct!";
-
+      if (i == 3){
+        questionEl.hidden = true;
+        aEl.hidden = true;
+        bEl.hidden = true;
+        cEl.hidden = true; 
+        clearInterval(countdown);
+        timeEl.textContent = secondsRemaining;
+        setScore();
+      }
       clearInterval(countdown);
       setScore();
     } 
+    else {
+      secondsRemaining -= 10;
+      i++;
+      nextQuestion();
+      evaluationEl.textContent = "Incorrect - Minus 10 seconds";
+      }
   //   else if (i < 2) {
   //     secondsRemaining -= 10;
   //     timeEl.textContent = secondsRemaining;
@@ -129,23 +152,8 @@ function checkAnswer(event) {
   //     evaluationEl.textContent = "Incorrect - Minus 10 seconds";
   //     nextQuestion(i);
   //  } 
-   else if (i==2){
-     secondsRemaining -=10;
-     evaluationEl.textContent = "Incorrect - Minus 10 seconds";
-     questionEl.hidden = true;
-     aEl.hidden = true;
-     bEl.hidden = true;
-     cEl.hidden = true; 
-     clearInterval(countdown);
-     timeEl.textContent = secondsRemaining;
-     setScore();
-   }
-    else {
-    secondsRemaining -= 10;
-    i++;
-    nextQuestion();
-    evaluationEl.textContent = "Incorrect - Minus 10 seconds";
-    }
+   
+  
     
 }
 //if time is less than 0 after deduction end quiz, if last question, end quiz. Hide questions!!!
