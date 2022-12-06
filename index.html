@@ -1,49 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-us">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/style.css">
-    <title>Code Quiz</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./reset.css">
+    <link rel="stylesheet" href="./style.css">
+    <title>Javascript Code Quiz</title>
 </head>
-<header>
-    <h1>Code Quiz</h1>
-    <h3 id="points" class="points">Points</h3>
-    <h3 id="timer">Timer</h3>
-</header>
+<!-- header section with my name and a link to the high score page -->
+
 <body>
-    <section id="start-section">
-        <p>Welcome to the Quiz, Click Start to Begin</p>
-        <button id="start-button">Start</button>
+    <header>
+        <div class = "header"> Sha's Code Quiz 
+            <p> <a class = "highScores" href="./highscores.html">View High Scores</a>
+            <p> Time Remaining <span id = "time"> 30 </span></p> 
+    </div>
+    </header>
+    <!-- This is the content section of the quiz -->
+<main>
 
-    </section>
-    <section id="question-section" class="hidden">
-        <p id="question">Question</p>
-        <button id="answer1">Answer 1</button>
-        <button id="answer2">Answer 2</button>
-        <button id="answer3">Answer 3</button>
-        <button id="answer4">Answer 4</button>
+    <div id = "content">
+    <button id="startBtn">Start Quiz</button>
 
-
-
-    </section>
-    <section id="initials-section" class="hidden">
-        <p>GG, enter you initials</p>
-        <input id="intials-input">
-        <button id="submit-button">Submit</button>
-
-    </section>
-    <section id="scores-section"class="hidden">
-        <p>High Score</p>
-        <ul id="scores-list">
-
-        </ul>
-
-    </section>
-
+        <div hidden id ="question">
+     
+    </div> 
+    <ul>
+        <li><button id="answerA"></button></li> 
+        <li><button id="answerB"></button></li> 
+        <li><button id="answerC"></button></li>
+    </ul>   
+    <p id = "evaluation"> </p>
+    <div hidden id ="resultsArea">
+            <h2> Submit your name and score!</h2>
+            <p> Final Score - <span id ="finalScore"></span></p> 
+            <input id="playerName" type="text"/>
+            <button id="submitBtn"> Submit</button> 
+    </div>
+    </div>
+</main>
     <footer>
-
+        <h2>Thank you for visiting my webpage!</h2> 
+                      
     </footer>
     <script src="./assets/script.js"></script>
 
